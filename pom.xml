@@ -1,0 +1,105 @@
+<project
+        xmlns="http://maven.apache.org/POM/4.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <name>CXF Server Template (SOAP, REST)</name>
+    <groupId>com.sdicons</groupId>
+    <artifactId>tmplt-server-cxf</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+
+    <dependencies>
+        <!--
+            Spring Framework
+        -->
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>3.0.5.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>3.0.5.RELEASE</version>
+        </dependency>
+
+        <!--
+            Spring uses this for the @Configuration classes.
+         -->
+
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>2.1_3</version>
+        </dependency>
+
+        <!--
+            CXF Core, used by both REST/SOAP front ends.
+            It is the core of the CXF framework it always has to be installed.
+        -->
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-core</artifactId>
+            <version>2.6.10</version>
+        </dependency>
+
+        <!--
+            JAX-RS Front End, necessary for REST resources.
+            Its main component is the JAXRSServerFactoryBean.
+            You can leave this front end out if you only want SOAP services.
+               + cxf-fontend-jaxrs = the REST server factory.
+               + cxf-rt-extenstion-providers = a number of REST providers one
+                    of these is the JSONProvider<T> which uses Jettison.
+               + jettison = has to be included explicitly for the provider above.
+        -->
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+            <version>2.6.10</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-rs-extension-providers</artifactId>
+            <version>2.6.10</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.jettison</groupId>
+            <artifactId>jettison</artifactId>
+            <version>1.3.4</version>
+        </dependency>
+
+        <!--
+            JAX-WS Front End, necessary for SOAP services.
+            Its main component is the JaxWsServerFactoryBean.
+            You can leave it out if you only want REST services.
+        -->
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxws</artifactId>
+            <version>2.6.10</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
