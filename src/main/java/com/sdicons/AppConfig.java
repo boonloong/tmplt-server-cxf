@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 // This class replaces a typical Spring configuration file.
-// The @Bean methods eaach produce a <bean> instance, the name and type are derived from the method declaration.
+// The @Bean methods each produce a <bean> instance, the name and type are derived from the method declaration.
 
 @Configuration
 public class AppConfig {
@@ -33,9 +33,13 @@ public class AppConfig {
     public Server cxfRestServer() {
         JAXRSServerFactoryBean cxfServer = new JAXRSServerFactoryBean();
         cxfServer.setServiceBeanObjects(restService());
-        cxfServer.setAddress("/rest");
+        cxfServer.setAddress(restAddress());
         cxfServer.setProviders(providers());
         return cxfServer.create();
+    }
+
+    protected String restAddress() {
+        return "/rest";
     }
 
     // All JAXB classes that can be returned from a REST method should be
@@ -56,8 +60,12 @@ public class AppConfig {
     public Server cxfSoapServer() {
         JaxWsServerFactoryBean cxfServer = new JaxWsServerFactoryBean();
         cxfServer.setServiceBean(soapService());
-        cxfServer.setAddress("/soap");
+        cxfServer.setAddress(soapAddress());
         return cxfServer.create();
+    }
+
+    protected String soapAddress() {
+        return "/soap";
     }
 
     // We create a separate method so that its dependencies will be injected
