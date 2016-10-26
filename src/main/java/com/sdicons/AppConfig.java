@@ -8,6 +8,7 @@ import org.apache.cxf.jaxrs.provider.json.JSONProvider;
 import org.apache.cxf.jaxws.JaxWsServerFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,7 +30,7 @@ public class AppConfig {
     // or in a servlet context. If running standalone it will start a Jetty instance, if
     // in servlet context it will service the servlet.
 
-    @Bean
+    @Bean @DependsOn( "cxf" )
     public Server cxfRestServer() {
         JAXRSServerFactoryBean cxfServer = new JAXRSServerFactoryBean();
         cxfServer.setServiceBeanObjects(restService());
@@ -56,7 +57,7 @@ public class AppConfig {
     // or in a servlet context.  If running standalone it will start a Jetty instance, if
     // in servlet context it will service the servlet.
 
-    @Bean
+    @Bean @DependsOn( "cxf" )
     public Server cxfSoapServer() {
         JaxWsServerFactoryBean cxfServer = new JaxWsServerFactoryBean();
         cxfServer.setServiceBean(soapService());
